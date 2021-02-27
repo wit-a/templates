@@ -18,6 +18,7 @@ private:
 	Artikel* artikel_next_address;
 public:
 	void outputDatenFromArtikel();
+
 	void nextAddressFromArtikel(Artikel*);
 	Artikel* nextAddressFromArtikel();
 
@@ -31,6 +32,7 @@ private:
 public:
 	void firstNodeListe(Artikel*);
 	Artikel* firstNodeListe();
+
 	void lastNodeListe(Artikel*);
 	Artikel* lastNodeListe();
 };

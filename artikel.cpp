@@ -3,7 +3,7 @@
 #include "artikel.h"
 // Class Artikel
 void Artikel::outputDatenFromArtikel() {
-	cout << setw(10) << artikel_artikel_nr << artikel_artikelbezeichnung << artikel_preis << artikel_lagerbestand;
+	cout << setw(10) << artikel_artikel_nr << " - " << artikel_artikelbezeichnung << " - " << artikel_preis << " - " << artikel_lagerbestand << endl;
 }
 
 void Artikel::nextAddressFromArtikel(Artikel* artikel_next_address_VM) {
@@ -26,6 +26,7 @@ Artikel::Artikel(int& artikel_artikel_nr_VM, string& artikel_artikelbezeichnung_
 	artikel_artikel_nr = artikel_artikel_nr_VM;
 	artikel_preis = artikel_preis_VM;
 	artikel_lagerbestand = artikel_lagerbestand_VM;
+	artikel_next_address = NULL;
 }
 // END Class Artikel
 
@@ -36,8 +37,8 @@ void Liste::firstNodeListe(Artikel* liste_first_node_VM) {
 Artikel* Liste::firstNodeListe() {
 	return liste_first_node;
 }
-void Liste::lastNodeListe(Artikel* liste_first_node_VM) {
-	liste_first_node = liste_first_node_VM;
+void Liste::lastNodeListe(Artikel* liste_last_node_VM) {
+	liste_last_node = liste_last_node_VM;
 }
 Artikel* Liste::lastNodeListe() {
 	return liste_last_node;

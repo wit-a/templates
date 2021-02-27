@@ -19,10 +19,12 @@
 
 #include "artikel.h"
 
+void listeAusgeben(Artikel*, Artikel*, Liste&);
+
 int main(){
 
-	Artikel* addresse_neu_1;
-	Artikel* addresse_neu_2;
+	Artikel* addresse_neu_1 = NULL;
+	Artikel* addresse_neu_2 = NULL;
 	bool check_first_node = true;
 	string tmp;
 
@@ -47,16 +49,42 @@ int main(){
 		art_lag_best = stoi(tmp);
 		
 		addresse_neu_1 = new Artikel(art_nr, art_bez, art_preis, art_lag_best);
-		//cout << art_nr << " - " << art_bez << " - " << art_preis << " - " << art_lag_best << endl;
+
 		if (check_first_node == true) {
 			artikel_liste.firstNodeListe(addresse_neu_1);
+			check_first_node = false;
 		}
 		else {
-
+			addresse_neu_2->nextAddressFromArtikel(addresse_neu_1);
 		}
-
+		addresse_neu_2 = addresse_neu_1;
 	}
-	
+
+	artikel_liste.lastNodeListe(addresse_neu_1);
+	open_csv_file.close();
 
 
-}
+	addresse_neu_1 = artikel_liste.firstNodeListe();
+	addresse_neu_2 = NULL;
+
+	while (addresse_neu_2 != artikel_liste.lastNodeListe()) {
+		addresse_neu_1->outputDatenFromArtikel();
+		addresse_neu_2 = addresse_neu_1;
+		addresse_neu_1 = addresse_neu_2->nextAddressFromArtikel();
+	}
+
+	//listeAusgeben(addresse_neu_1, addresse_neu_2, artikel_liste);
+
+
+} // END main
+
+void listeAusgeben(Artikel* addresse_neu_1, Artikel* addresse_neu_2, Liste& artikel_liste) {
+	addresse_neu_1 = artikel_liste.firstNodeListe();
+	addresse_neu_2 = NULL;
+
+	while (addresse_neu_2 != artikel_liste.lastNodeListe()){
+		addresse_neu_1->outputDatenFromArtikel();
+		addresse_neu_2 = addresse_neu_1;
+		addresse_neu_1->nextAddressFromArtikel();
+	}
+} // END listeAusgeben
