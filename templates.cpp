@@ -23,12 +23,39 @@ int main(){
 
 	Artikel* addresse_neu_1;
 	Artikel* addresse_neu_2;
+	bool check_first_node = true;
+	string tmp;
+
 	int art_nr = NULL;
 	string art_bez;
 	double art_preis = 0.0;
 	int art_lag_best = NULL;
 
+	Liste artikel_liste;
+
 	cout << endl << endl << "Artikel DB" << endl << endl;
+
+	ifstream open_csv_file("Artikel.csv");
+
+
+	while ( getline(open_csv_file, tmp, ';') ){
+		art_nr = stoi(tmp);
+		getline(open_csv_file, art_bez,';');
+		getline(open_csv_file, tmp, ';');
+		art_preis = stod(tmp);
+		getline(open_csv_file, tmp);
+		art_lag_best = stoi(tmp);
+		
+		addresse_neu_1 = new Artikel(art_nr, art_bez, art_preis, art_lag_best);
+		//cout << art_nr << " - " << art_bez << " - " << art_preis << " - " << art_lag_best << endl;
+		if (check_first_node == true) {
+			artikel_liste.firstNodeListe(addresse_neu_1);
+		}
+		else {
+
+		}
+
+	}
 	
 
 
