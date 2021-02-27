@@ -18,5 +18,13 @@
     <ClCompile Include="templates.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="artikel.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="artikel.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

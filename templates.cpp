@@ -1,20 +1,35 @@
-// templates.cpp : Diese Datei enthält die Funktion "main". Hier beginnt und endet die Ausführung des Programms.
-//
+/*
+* 24.02.2021 C++
+* Aufgabe zu Tamplates
+*
+* 1) Schreiben Sie ein Programm in C++, welches die Textdatei Artikel.txt zeilenweise Ausliest und 
+* die entsprechenden Werte in die Objekte einer Klasse artikel schreibt.
+* (eine Zeile der Artikel.txt hat folgende Struktrt: Artikelnr.;Artikelbezeichnung; Preis; Lagerbestand)
+*
+* 2) Legen Sie einen Array vom Typ artikel* an, in welchem sie die Adressen der erzeugten Objekte speichern. 
+* Diesen Array halten Sie in einer Klasse liste. (Wenn Sie wollen k�nnen Sie statt dessen auch mit einer verketteten Liste arbeiten, 
+* aber wem das zu kompliziert ist kann auch mit einem Array mit 18 Speicherpl�tzen arbeiten)
+* Schreiben Sie eine Methode �sortieren� der Klasse liste (als Template) welche die Liste umsortiert. 
+* 
+* 3) Es soll m�glich sein nach Artikelnummer, nach Artikelname und auch nach dem Preis oder Lagerbestand sortieren zu lassen.
+*
+* 4) Lassen Sie die Liste anschlie�end ausgeben.
+*
+*/
 
-#include <iostream>
+#include "artikel.h"
 
-int main()
-{
-    std::cout << "Hello World!\n";
+int main(){
+
+	Artikel* addresse_neu_1;
+	Artikel* addresse_neu_2;
+	int art_nr = NULL;
+	string art_bez;
+	double art_preis = 0.0;
+	int art_lag_best = NULL;
+
+	cout << endl << endl << "Artikel DB" << endl << endl;
+	
+
+
 }
-
-// Programm ausführen: STRG+F5 oder Menüeintrag "Debuggen" > "Starten ohne Debuggen starten"
-// Programm debuggen: F5 oder "Debuggen" > Menü "Debuggen starten"
-
-// Tipps für den Einstieg: 
-//   1. Verwenden Sie das Projektmappen-Explorer-Fenster zum Hinzufügen/Verwalten von Dateien.
-//   2. Verwenden Sie das Team Explorer-Fenster zum Herstellen einer Verbindung mit der Quellcodeverwaltung.
-//   3. Verwenden Sie das Ausgabefenster, um die Buildausgabe und andere Nachrichten anzuzeigen.
-//   4. Verwenden Sie das Fenster "Fehlerliste", um Fehler anzuzeigen.
-//   5. Wechseln Sie zu "Projekt" > "Neues Element hinzufügen", um neue Codedateien zu erstellen, bzw. zu "Projekt" > "Vorhandenes Element hinzufügen", um dem Projekt vorhandene Codedateien hinzuzufügen.
-//   6. Um dieses Projekt später erneut zu öffnen, wechseln Sie zu "Datei" > "Öffnen" > "Projekt", und wählen Sie die SLN-Datei aus.
