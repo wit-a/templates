@@ -20,8 +20,7 @@ double Artikel::artikelPreis() {
 	return artikel_preis;
 }
 int Artikel::artikelLagerbestand() {
-	int tmp = artikel_lagerbestand;
-	return tmp;
+	return artikel_lagerbestand;
 }
 Artikel::Artikel() 
 	:artikel_artikelbezeichnung("empty") {

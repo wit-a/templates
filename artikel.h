@@ -18,16 +18,12 @@ public:
 	void outputDatenFromArtikel();
 	void nextAddressFromArtikel(Artikel*);
 	Artikel* nextAddressFromArtikel();
-	/*
 	inline int artikelArtikelNr() {
 			return this->artikel_artikel_nr;
 	}
-	*/
 	string artikelArtikelbezeichnung();
 	double artikelPreis();
 	int artikelLagerbestand();
-
-
 
 	Artikel();
 	Artikel(int&, string&, double&, int&);
@@ -43,4 +39,3 @@ public:
 	void lastNodeListe(Artikel*);
 	Artikel* lastNodeListe();
 };
-
