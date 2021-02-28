@@ -18,8 +18,16 @@
 */
 #include "artikel.h"
 
+#include <iostream>
+
+using namespace std;
 
 #define LEN 18
+
+//template<class T> bool testSort(T, T);
+template<class T> bool testSort(T first, T next) {
+	return first > next;
+}
 
 void kopfAusgabe();
 
@@ -34,11 +42,15 @@ void bubleSortArr(Artikel* artikel_arr[], int counter_artikel, int sort_nach) {
 	bool wechsel = false;
 	for (int i = counter_artikel; i > 1; i--) {
 		for (int j = 0; j < counter_artikel; j++) {
+			/*
 				if (sort_nach == 1) { // Artikel Nummer
-					if (artikel_arr[j]->testSort(artikel_arr[j]->artikelArtikelNr(), artikel_arr[j + 1]->artikelArtikelNr())) {
+					int tmp1 = artikel_arr[j]->artikelArtikelNr();
+					int tmp2 = artikel_arr[j+1]->artikelArtikelNr();
+					if (testSort<int>(tmp1,tmp2)) {
 						wechsel = true;
 					}
 				}
+			*/
 				if (sort_nach == 2) { // Artikel Bezeichnung
 					string tmp1 = artikel_arr[j]->artikelArtikelbezeichnung();
 					string tmp2 = artikel_arr[j]->artikelArtikelbezeichnung();
@@ -46,13 +58,15 @@ void bubleSortArr(Artikel* artikel_arr[], int counter_artikel, int sort_nach) {
 						wechsel = true;
 					}
 				}
+				/*
 				if (sort_nach == 3) { // Artikel Preis
-					if (artikel_arr[j]->testSort(artikel_arr[j]->artikelPreis(), artikel_arr[j + 1]->artikelPreis())) {
+					if (testSort(artikel_arr[j]->artikelPreis(), artikel_arr[j + 1]->artikelPreis())) {
 						wechsel = true;
 					}
 				}
+				*/
 				if (sort_nach == 4) { // Artikel LAgerbestand
-					if (artikel_arr[j]->testSort(artikel_arr[j]->artikelLagerbestand(), artikel_arr[j + 1]->artikelLagerbestand())) {
+					if (testSort<int>(artikel_arr[j]->artikelLagerbestand(), artikel_arr[j + 1]->artikelLagerbestand())) {
 						wechsel = true;
 					}
 				}
@@ -60,7 +74,7 @@ void bubleSortArr(Artikel* artikel_arr[], int counter_artikel, int sort_nach) {
 					tmp = artikel_arr[j];
 					artikel_arr[j] = artikel_arr[j + 1];
 					artikel_arr[j + 1] = tmp;
-					wechsel == false;
+					wechsel = false;
 				}
 		}
 	}
@@ -74,6 +88,7 @@ int main(){
 	int art_lag_best = NULL;
 	Artikel* artikel_arr[LEN];
 	int counter_artikel = 0;
+
 
 
 	ifstream open_csv_file("Artikel.csv");
@@ -103,17 +118,19 @@ int main(){
 	cin >> sort_nach;
 
 	if (sort_nach == 1) {
-		
+		bubleSortArr(artikel_arr, counter_artikel, sort_nach);
 	}
 	if (sort_nach == 2) {
-
+		;
 	}
 	if (sort_nach == 3) {
 		;
 	}
 	if (sort_nach == 4) {
-
+		bubleSortArr(artikel_arr, counter_artikel, sort_nach);
 	}
+	kopfAusgabe();
+	outputDatenArr(artikel_arr, counter_artikel);
 
 
 } // END main

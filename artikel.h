@@ -18,14 +18,16 @@ public:
 	void outputDatenFromArtikel();
 	void nextAddressFromArtikel(Artikel*);
 	Artikel* nextAddressFromArtikel();
-
-	int artikelArtikelNr();
+	/*
+	inline int artikelArtikelNr() {
+			return this->artikel_artikel_nr;
+	}
+	*/
 	string artikelArtikelbezeichnung();
 	double artikelPreis();
 	int artikelLagerbestand();
 
-	template<class T>
-	bool testSort(T, T );
+
 
 	Artikel();
 	Artikel(int&, string&, double&, int&);
@@ -41,3 +43,4 @@ public:
 	void lastNodeListe(Artikel*);
 	Artikel* lastNodeListe();
 };
+

@@ -13,9 +13,6 @@ void Artikel::nextAddressFromArtikel(Artikel* artikel_next_address_VM) {
 Artikel* Artikel::nextAddressFromArtikel() {
 	return artikel_next_address;
 }
-int Artikel::artikelArtikelNr() {
-	return artikel_artikel_nr;
-}
 string Artikel::artikelArtikelbezeichnung() {
 	return artikel_artikelbezeichnung;
 }
@@ -23,7 +20,8 @@ double Artikel::artikelPreis() {
 	return artikel_preis;
 }
 int Artikel::artikelLagerbestand() {
-	return artikel_lagerbestand;
+	int tmp = artikel_lagerbestand;
+	return tmp;
 }
 Artikel::Artikel() 
 	:artikel_artikelbezeichnung("empty") {
@@ -40,10 +38,7 @@ Artikel::Artikel(int& artikel_artikel_nr_VM, string& artikel_artikelbezeichnung_
 	artikel_lagerbestand = artikel_lagerbestand_VM;
 	artikel_next_address = NULL;
 }
-template<class T>
-bool Artikel::testSort(T first, T next) {
-	return first > next;
-}
+
 // END Class Artikel
 // Class Liste
 void Liste::firstNodeListe(Artikel* liste_first_node_VM) {
@@ -59,3 +54,4 @@ Artikel* Liste::lastNodeListe() {
 	return liste_last_node;
 }
 // END Class Liste 
+
