@@ -44,7 +44,7 @@ void bubleSortArr(Artikel* artikel_arr[], int counter_artikel, int sort_nach) {
     Artikel* a1, *a2;
 	bool wechsel = false;
     for (int i = counter_artikel; i > 1; i--) {
-		for (int j = 0; j < counter_artikel; j++) {
+        for (int j = 0; j < counter_artikel -1; j++) {
 
                 if (sort_nach == 1) { // Artikel nr
 
