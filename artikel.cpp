@@ -20,7 +20,7 @@ double Artikel::artikelPreis() {
 	return artikel_preis;
 }
 int Artikel::artikelLagerbestand() {
-	int tmp = artikel_lagerbestand;
+    int tmp = this->artikel_lagerbestand;
 	return tmp;
 }
 Artikel::Artikel() 
@@ -37,6 +37,11 @@ Artikel::Artikel(int& artikel_artikel_nr_VM, string& artikel_artikelbezeichnung_
 	artikel_preis = artikel_preis_VM;
 	artikel_lagerbestand = artikel_lagerbestand_VM;
 	artikel_next_address = NULL;
+}
+
+
+int Artikel::getNr(){
+    return this->artikel_artikel_nr;
 }
 
 // END Class Artikel

@@ -32,44 +32,38 @@ template<class T> bool testSort(T first, T next) {
 void kopfAusgabe();
 
 void outputDatenArr(Artikel *artikel_arr[], int counter_artikel) {
-	for (int i = 0; i < counter_artikel; i++) {
-		artikel_arr[i]->outputDatenFromArtikel();
+    Artikel *a;
+    for (int i = 0; i < counter_artikel; i++) {
+        a = artikel_arr[i];
+        artikel_arr[i]->outputDatenFromArtikel();
 	}
 }// END outputDatenArr
 
 void bubleSortArr(Artikel* artikel_arr[], int counter_artikel, int sort_nach) {
 	Artikel* tmp;
+    Artikel* a1, *a2;
 	bool wechsel = false;
-	for (int i = counter_artikel; i > 1; i--) {
+    for (int i = counter_artikel; i > 1; i--) {
 		for (int j = 0; j < counter_artikel; j++) {
-			/*
-				if (sort_nach == 1) { // Artikel Nummer
-					int tmp1 = artikel_arr[j]->artikelArtikelNr();
-					int tmp2 = artikel_arr[j+1]->artikelArtikelNr();
-					if (testSort<int>(tmp1,tmp2)) {
+
+                if (sort_nach == 1) { // Artikel nr
+
+                    a1 = artikel_arr[j];
+                    a2 = artikel_arr[j + 1];
+
+                    if (testSort<int>(artikel_arr[j]->getNr(), artikel_arr[j + 1]->getNr())) {
 						wechsel = true;
 					}
 				}
-			*/
-				if (sort_nach == 2) { // Artikel Bezeichnung
-					string tmp1 = artikel_arr[j]->artikelArtikelbezeichnung();
-					string tmp2 = artikel_arr[j]->artikelArtikelbezeichnung();
-					if (tmp1.compare(tmp2)) {
-						wechsel = true;
-					}
-				}
-				/*
-				if (sort_nach == 3) { // Artikel Preis
-					if (testSort(artikel_arr[j]->artikelPreis(), artikel_arr[j + 1]->artikelPreis())) {
-						wechsel = true;
-					}
-				}
-				*/
-				if (sort_nach == 4) { // Artikel LAgerbestand
-					if (testSort<int>(artikel_arr[j]->artikelLagerbestand(), artikel_arr[j + 1]->artikelLagerbestand())) {
-						wechsel = true;
-					}
-				}
+                else if(sort_nach == 4){
+
+                    a1 = artikel_arr[j];
+                    a2 = artikel_arr[j + 1];
+
+                    if (testSort<int>(artikel_arr[j]->artikelLagerbestand(), artikel_arr[j + 1]->artikelLagerbestand())) {
+                        wechsel = true;
+                    }
+                }
 				if (wechsel == true) {
 					tmp = artikel_arr[j];
 					artikel_arr[j] = artikel_arr[j + 1];
@@ -119,12 +113,6 @@ int main(){
 
 	if (sort_nach == 1) {
 		bubleSortArr(artikel_arr, counter_artikel, sort_nach);
-	}
-	if (sort_nach == 2) {
-		;
-	}
-	if (sort_nach == 3) {
-		;
 	}
 	if (sort_nach == 4) {
 		bubleSortArr(artikel_arr, counter_artikel, sort_nach);

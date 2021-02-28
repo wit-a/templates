@@ -24,6 +24,7 @@ public:
 	}
 	*/
 	string artikelArtikelbezeichnung();
+    int getNr();
 	double artikelPreis();
 	int artikelLagerbestand();
 
