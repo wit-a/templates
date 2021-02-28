@@ -1,11 +1,9 @@
 // artikel.h 
-
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <iomanip>
-
 using namespace std;
 
 class Artikel {
@@ -18,13 +16,21 @@ private:
 	Artikel* artikel_next_address;
 public:
 	void outputDatenFromArtikel();
-
 	void nextAddressFromArtikel(Artikel*);
 	Artikel* nextAddressFromArtikel();
+
+	int artikelArtikelNr();
+	string artikelArtikelbezeichnung();
+	double artikelPreis();
+	int artikelLagerbestand();
+
+	template<class T>
+	bool testSort(T, T );
 
 	Artikel();
 	Artikel(int&, string&, double&, int&);
 };
+
 class Liste {
 private:
 	Artikel* liste_first_node;
@@ -32,7 +38,6 @@ private:
 public:
 	void firstNodeListe(Artikel*);
 	Artikel* firstNodeListe();
-
 	void lastNodeListe(Artikel*);
 	Artikel* lastNodeListe();
 };
