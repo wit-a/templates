@@ -17,7 +17,9 @@
 * 4) Lassen Sie die Liste anschlieﬂend ausgeben.
 */
 #include "artikel.h"
+
 #include <iostream>
+
 using namespace std;
 
 #define LEN 18
@@ -43,31 +45,6 @@ void bubleSortArr(Artikel* artikel_arr[], int counter_artikel, int sort_nach) {
 	bool wechsel = false;
     for (int i = counter_artikel; i > 1; i--) {
 		for (int j = 0; j < counter_artikel; j++) {
-<<<<<<< HEAD
-			if (sort_nach == 1) { // Artikel Nummer
-				int tmp1 = artikel_arr[j]->artikelArtikelNr();
-				int tmp2 = artikel_arr[j+1]->artikelArtikelNr();
-				if (testSort<int>(tmp1,tmp2)) {
-					wechsel = true;
-				}
-			}
-			if (sort_nach == 2) { // Artikel Bezeichnung
-				string tmp1 = artikel_arr[j]->artikelArtikelbezeichnung();
-				string tmp2 = artikel_arr[j]->artikelArtikelbezeichnung();
-				if (tmp1.compare(tmp2)) {
-					wechsel = true;
-				}
-			}
-			
-			if (sort_nach == 3) { // Artikel Preis
-				if (testSort(artikel_arr[j]->artikelPreis(), artikel_arr[j + 1]->artikelPreis())) {
-					wechsel = true;
-				}
-			}
-			if (sort_nach == 4) { // Artikel Lagerbestand
-				if (testSort<int>(artikel_arr[j]->artikelLagerbestand(), artikel_arr[j + 1]->artikelLagerbestand())) {
-					wechsel = true;
-=======
 
                 if (sort_nach == 1) { // Artikel nr
 
@@ -92,15 +69,7 @@ void bubleSortArr(Artikel* artikel_arr[], int counter_artikel, int sort_nach) {
 					artikel_arr[j] = artikel_arr[j + 1];
 					artikel_arr[j + 1] = tmp;
 					wechsel = false;
->>>>>>> 0afead6bf00c7bd8e72ed4bacc5bfbbb62a63120
 				}
-			}
-			if (wechsel == true) {
-				tmp = artikel_arr[j];
-				artikel_arr[j] = artikel_arr[j + 1];
-				artikel_arr[j + 1] = tmp;
-				wechsel = false;
-			}
 		}
 	}
 }
@@ -113,6 +82,9 @@ int main(){
 	int art_lag_best = NULL;
 	Artikel* artikel_arr[LEN];
 	int counter_artikel = 0;
+
+
+
 	ifstream open_csv_file("Artikel.csv");
 // 1)
 	while (getline(open_csv_file, tmp, ';')) {
@@ -142,20 +114,12 @@ int main(){
 	if (sort_nach == 1) {
 		bubleSortArr(artikel_arr, counter_artikel, sort_nach);
 	}
-<<<<<<< HEAD
-	if (sort_nach == 2) {
-		bubleSortArr(artikel_arr, counter_artikel, sort_nach);
-	}
-	if (sort_nach == 3) {
-		bubleSortArr(artikel_arr, counter_artikel, sort_nach);
-	}
-=======
->>>>>>> 0afead6bf00c7bd8e72ed4bacc5bfbbb62a63120
 	if (sort_nach == 4) {
 		bubleSortArr(artikel_arr, counter_artikel, sort_nach);
 	}
 	kopfAusgabe();
 	outputDatenArr(artikel_arr, counter_artikel);
+
 
 } // END main
 void kopfAusgabe() {

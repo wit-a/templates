@@ -22,6 +22,7 @@ public:
 			return this->artikel_artikel_nr;
 	}
 	string artikelArtikelbezeichnung();
+    int getNr();
 	double artikelPreis();
 	int artikelLagerbestand();
 
