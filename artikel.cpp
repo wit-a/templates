@@ -13,6 +13,9 @@ void Artikel::nextAddressFromArtikel(Artikel* artikel_next_address_VM) {
 Artikel* Artikel::nextAddressFromArtikel() {
 	return artikel_next_address;
 }
+int Artikel::artikelArtikelNr() {
+	return artikel_artikel_nr;
+}
 string Artikel::artikelArtikelbezeichnung() {
 	return artikel_artikelbezeichnung;
 }
@@ -39,11 +42,12 @@ Artikel::Artikel(int& artikel_artikel_nr_VM, string& artikel_artikelbezeichnung_
 	artikel_next_address = NULL;
 }
 
-
+/*
 int Artikel::getNr(){
     return this->artikel_artikel_nr;
 }
 
+*/
 // END Class Artikel
 // Class Liste
 void Liste::firstNodeListe(Artikel* liste_first_node_VM) {

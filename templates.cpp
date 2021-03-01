@@ -18,80 +18,16 @@
 */
 #include "artikel.h"
 
-#include <iostream>
+#define LEN 18 // Anzahl der Objekte im Array (war 18 vorgegeben= 
 
-using namespace std;
-
-#define LEN 18
-
-//template<class T> bool testSort(T, T);
+//beim aufrufen name<type>(var1, var2); aufrufen 
 template<class T> bool testSort(T first, T next) {
 	return first > next;
-}
+} // END template
 
 void kopfAusgabe();
-
-void outputDatenArr(Artikel *artikel_arr[], int counter_artikel) {
-    Artikel *a;
-    for (int i = 0; i < counter_artikel; i++) {
-        a = artikel_arr[i];
-        artikel_arr[i]->outputDatenFromArtikel();
-	}
-}// END outputDatenArr
-
-void bubleSortArr(Artikel* artikel_arr[], int counter_artikel, int sort_nach) {
-	Artikel* tmp;
-    Artikel* a1, *a2;
-	bool wechsel = false;
-    for (int i = counter_artikel; i > 1; i--) {
-        for (int j = 0; j < counter_artikel -1; j++) {
-
-			if (sort_nach == 1) { // sortierung nach Artikel nr
-
-				a1 = artikel_arr[j];
-				a2 = artikel_arr[j + 1];
-
-				if (testSort<int>(artikel_arr[j]->getNr(), artikel_arr[j + 1]->getNr())) {
-						wechsel = true;
-					}
-				}
-			if (sort_nach == 2) { // sortierung nach Bezeichnung
-				a1 = artikel_arr[j];
-				a2 = artikel_arr[j + 1];
-				string tmp1 = artikel_arr[j]->artikelArtikelbezeichnung();
-				string tmp2 = artikel_arr[j+1]->artikelArtikelbezeichnung();
-				if (0 < tmp1.compare(tmp2)) {
-					wechsel = true;
-				}
-
-			}
-			if (sort_nach == 3) { // sortierung nach Preis
-
-				a1 = artikel_arr[j];
-				a2 = artikel_arr[j + 1];
-
-				if (testSort<double>(artikel_arr[j]->artikelPreis(), artikel_arr[j + 1]->artikelPreis())) {
-					wechsel = true;
-				}
-			}
-            if(sort_nach == 4){ // sortierung nach Lagerbestand 
-
-                a1 = artikel_arr[j];
-                a2 = artikel_arr[j + 1];
-
-                if (testSort<int>(artikel_arr[j]->artikelLagerbestand(), artikel_arr[j + 1]->artikelLagerbestand())) {
-                    wechsel = true;
-                }
-            }
-			if (wechsel == true) {
-				tmp = artikel_arr[j];
-				artikel_arr[j] = artikel_arr[j + 1];
-				artikel_arr[j + 1] = tmp;
-				wechsel = false;
-			}
-		}
-	}
-}
+void outputDatenArr(Artikel*[], int); // 4)
+void bubleSortArr(Artikel* [], int, int); // 3)
 
 int main(){
 	string tmp;
@@ -101,10 +37,13 @@ int main(){
 	int art_lag_best = NULL;
 	Artikel* artikel_arr[LEN];
 	int counter_artikel = 0;
+	int sort_nach = 0;
 
 	ifstream open_csv_file("Artikel.csv");
-// 1)
+
+// 1 - 2)
 	while (getline(open_csv_file, tmp, ';')) {
+		// getline geht nur mit string um deswegen werden die string mit sto* gekastet 
 		art_nr = stoi(tmp);
 		getline(open_csv_file, art_bez, ';');
 		getline(open_csv_file, tmp, ';');
@@ -116,21 +55,17 @@ int main(){
 		counter_artikel++;
 	}
 	open_csv_file.close();
-	// Ausgabe 
-	kopfAusgabe();
+	// Ausgabe nach einlesen 
 	outputDatenArr(artikel_arr, counter_artikel);
 	
-	int sort_nach = 0;
-	do {
-		
+	do { // main meunu loop
 		cout << " Nach was moechten Sie sortieren?" << endl
 			<< " 1 - Nr" << endl
 			<< " 2 - Bezeichnung" << endl
 			<< " 3 - Preis" << endl
 			<< " 4 - Lagerbestand" << endl
-			<< " 0 - end ";
+			<< " 0 - end " << endl;
 		cin >> sort_nach;
-
 		if (sort_nach == 1) {
 			bubleSortArr(artikel_arr, counter_artikel, sort_nach);
 		}
@@ -143,14 +78,10 @@ int main(){
 		if (sort_nach == 4) {
 			bubleSortArr(artikel_arr, counter_artikel, sort_nach);
 		}
-
-		kopfAusgabe();
 		outputDatenArr(artikel_arr, counter_artikel);
 	} while (sort_nach!= 0);
-	
-
-
 } // END main
+
 void kopfAusgabe() {
 	cout << endl << endl << setw(25) << "Artikel DB" << endl << endl
 		<< setw(3) << right << "Nr" <<
@@ -162,3 +93,67 @@ void kopfAusgabe() {
 	}
 	cout << endl;
 } // END kopfAusgabe
+
+// 4)
+void outputDatenArr(Artikel* artikel_arr[], int counter_artikel) {
+	kopfAusgabe();
+	Artikel* addresse_artikel_tmp;
+	for (int i = 0; i < counter_artikel; i++) {
+		addresse_artikel_tmp = artikel_arr[i];
+		artikel_arr[i]->outputDatenFromArtikel();
+	}
+}// END outputDatenArr
+
+// 3)
+void bubleSortArr(Artikel* artikel_arr[], int counter_artikel, int sort_nach) {
+	Artikel* addresse_artikel_tmp_1 = NULL;
+	Artikel* addresse_artikel_tmp_2 = NULL;
+	bool swap_artikel_obj = false;
+	for (int i = counter_artikel; i > 1; i--) {
+		for (int j = 0; j < counter_artikel - 1; j++) {
+			if (sort_nach == 1) { // sortierung nach Artikel nr
+
+				addresse_artikel_tmp_1 = artikel_arr[j];
+				addresse_artikel_tmp_2 = artikel_arr[j + 1];
+
+				if (testSort<int>(artikel_arr[j]->artikelArtikelNr(), artikel_arr[j + 1]->artikelArtikelNr())) {
+					swap_artikel_obj = true;
+				}
+			}
+			if (sort_nach == 2) { // sortierung nach Bezeichnung
+				addresse_artikel_tmp_1 = artikel_arr[j];
+				addresse_artikel_tmp_2 = artikel_arr[j + 1];
+				// direkter strig vergleich... zum testen aber auch das template kann mit string umgehen 
+				if (testSort<string>(artikel_arr[j]->artikelArtikelbezeichnung(), artikel_arr[j + 1]->artikelArtikelbezeichnung())) {
+					swap_artikel_obj = true;
+				}
+
+			}
+			if (sort_nach == 3) { // sortierung nach Preis
+
+				addresse_artikel_tmp_1 = artikel_arr[j];
+				addresse_artikel_tmp_2 = artikel_arr[j + 1];
+
+				if (testSort<double>(artikel_arr[j]->artikelPreis(), artikel_arr[j + 1]->artikelPreis())) {
+					swap_artikel_obj = true;
+				}
+			}
+			if (sort_nach == 4) { // sortierung nach Lagerbestand 
+
+				addresse_artikel_tmp_1 = artikel_arr[j];
+				addresse_artikel_tmp_2 = artikel_arr[j + 1];
+
+				if (testSort<int>(artikel_arr[j]->artikelLagerbestand(), artikel_arr[j + 1]->artikelLagerbestand())) {
+					swap_artikel_obj = true;
+				}
+			}
+			if (swap_artikel_obj == true) {
+				Artikel* swap_artikel_tmp = NULL;
+				swap_artikel_tmp = artikel_arr[j];
+				artikel_arr[j] = artikel_arr[j + 1];
+				artikel_arr[j + 1] = swap_artikel_tmp;
+				swap_artikel_obj = false;
+			}
+		}
+	}
+} // END bubleSortArr
