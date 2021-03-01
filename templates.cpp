@@ -46,30 +46,49 @@ void bubleSortArr(Artikel* artikel_arr[], int counter_artikel, int sort_nach) {
     for (int i = counter_artikel; i > 1; i--) {
         for (int j = 0; j < counter_artikel -1; j++) {
 
-                if (sort_nach == 1) { // Artikel nr
+			if (sort_nach == 1) { // sortierung nach Artikel nr
 
-                    a1 = artikel_arr[j];
-                    a2 = artikel_arr[j + 1];
+				a1 = artikel_arr[j];
+				a2 = artikel_arr[j + 1];
 
-                    if (testSort<int>(artikel_arr[j]->getNr(), artikel_arr[j + 1]->getNr())) {
+				if (testSort<int>(artikel_arr[j]->getNr(), artikel_arr[j + 1]->getNr())) {
 						wechsel = true;
 					}
 				}
-                else if(sort_nach == 4){
-
-                    a1 = artikel_arr[j];
-                    a2 = artikel_arr[j + 1];
-
-                    if (testSort<int>(artikel_arr[j]->artikelLagerbestand(), artikel_arr[j + 1]->artikelLagerbestand())) {
-                        wechsel = true;
-                    }
-                }
-				if (wechsel == true) {
-					tmp = artikel_arr[j];
-					artikel_arr[j] = artikel_arr[j + 1];
-					artikel_arr[j + 1] = tmp;
-					wechsel = false;
+			if (sort_nach == 2) { // sortierung nach Bezeichnung
+				a1 = artikel_arr[j];
+				a2 = artikel_arr[j + 1];
+				string tmp1 = artikel_arr[j]->artikelArtikelbezeichnung();
+				string tmp2 = artikel_arr[j+1]->artikelArtikelbezeichnung();
+				if (0 < tmp1.compare(tmp2)) {
+					wechsel = true;
 				}
+
+			}
+			if (sort_nach == 3) { // sortierung nach Preis
+
+				a1 = artikel_arr[j];
+				a2 = artikel_arr[j + 1];
+
+				if (testSort<double>(artikel_arr[j]->artikelPreis(), artikel_arr[j + 1]->artikelPreis())) {
+					wechsel = true;
+				}
+			}
+            if(sort_nach == 4){ // sortierung nach Lagerbestand 
+
+                a1 = artikel_arr[j];
+                a2 = artikel_arr[j + 1];
+
+                if (testSort<int>(artikel_arr[j]->artikelLagerbestand(), artikel_arr[j + 1]->artikelLagerbestand())) {
+                    wechsel = true;
+                }
+            }
+			if (wechsel == true) {
+				tmp = artikel_arr[j];
+				artikel_arr[j] = artikel_arr[j + 1];
+				artikel_arr[j + 1] = tmp;
+				wechsel = false;
+			}
 		}
 	}
 }
@@ -82,8 +101,6 @@ int main(){
 	int art_lag_best = NULL;
 	Artikel* artikel_arr[LEN];
 	int counter_artikel = 0;
-
-
 
 	ifstream open_csv_file("Artikel.csv");
 // 1)
@@ -102,23 +119,35 @@ int main(){
 	// Ausgabe 
 	kopfAusgabe();
 	outputDatenArr(artikel_arr, counter_artikel);
-
+	
 	int sort_nach = 0;
-	cout << " Nach was moechten Sie sortieren?" << endl
-		<< " 1 - Nr" << endl
-		<< " 2 - Bezeichnung" << endl
-		<< " 3 - Preis" << endl
-		<< " 4 - Lagerbestand" << endl;
-	cin >> sort_nach;
+	do {
+		
+		cout << " Nach was moechten Sie sortieren?" << endl
+			<< " 1 - Nr" << endl
+			<< " 2 - Bezeichnung" << endl
+			<< " 3 - Preis" << endl
+			<< " 4 - Lagerbestand" << endl
+			<< " 0 - end ";
+		cin >> sort_nach;
 
-	if (sort_nach == 1) {
-		bubleSortArr(artikel_arr, counter_artikel, sort_nach);
-	}
-	if (sort_nach == 4) {
-		bubleSortArr(artikel_arr, counter_artikel, sort_nach);
-	}
-	kopfAusgabe();
-	outputDatenArr(artikel_arr, counter_artikel);
+		if (sort_nach == 1) {
+			bubleSortArr(artikel_arr, counter_artikel, sort_nach);
+		}
+		if (sort_nach == 2) {
+			bubleSortArr(artikel_arr, counter_artikel, sort_nach);
+		}
+		if (sort_nach == 3) {
+			bubleSortArr(artikel_arr, counter_artikel, sort_nach);
+		}
+		if (sort_nach == 4) {
+			bubleSortArr(artikel_arr, counter_artikel, sort_nach);
+		}
+
+		kopfAusgabe();
+		outputDatenArr(artikel_arr, counter_artikel);
+	} while (sort_nach!= 0);
+	
 
 
 } // END main
