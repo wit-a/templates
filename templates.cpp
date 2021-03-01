@@ -19,7 +19,8 @@
 
 #include "artikel.h"
 
-void listeAusgeben(Artikel*, Artikel*, Liste&);
+void kopfAusgabe();
+void listeAusgeben(Liste&);
 
 int main(){
 
@@ -27,22 +28,21 @@ int main(){
 	Artikel* addresse_neu_2 = NULL;
 	bool check_first_node = true;
 	string tmp;
-
 	int art_nr = NULL;
 	string art_bez;
 	double art_preis = 0.0;
 	int art_lag_best = NULL;
-
+	int sort_nach = 0;
 	Liste artikel_liste;
 
 	cout << endl << endl << "Artikel DB" << endl << endl;
 
 	ifstream open_csv_file("Artikel.csv");
 
-
-	while ( getline(open_csv_file, tmp, ';') ){
+	while (getline(open_csv_file, tmp, ';')) {
+		// getline geht nur mit string um deswegen werden die string mit sto* gekastet 
 		art_nr = stoi(tmp);
-		getline(open_csv_file, art_bez,';');
+		getline(open_csv_file, art_bez, ';');
 		getline(open_csv_file, tmp, ';');
 		art_preis = stod(tmp);
 		getline(open_csv_file, tmp);
@@ -63,28 +63,51 @@ int main(){
 	artikel_liste.lastNodeListe(addresse_neu_1);
 	open_csv_file.close();
 
+	listeAusgeben(artikel_liste);
 
-	addresse_neu_1 = artikel_liste.firstNodeListe();
-	addresse_neu_2 = NULL;
-
-	while (addresse_neu_2 != artikel_liste.lastNodeListe()) {
-		addresse_neu_1->outputDatenFromArtikel();
-		addresse_neu_2 = addresse_neu_1;
-		addresse_neu_1 = addresse_neu_2->nextAddressFromArtikel();
-	}
-
-	//listeAusgeben(addresse_neu_1, addresse_neu_2, artikel_liste);
-
+	do { // main meunu loop
+		cout << " Nach was moechten Sie sortieren?" << endl
+			<< " 1 - Nr" << endl
+			<< " 2 - Bezeichnung" << endl
+			<< " 3 - Preis" << endl
+			<< " 4 - Lagerbestand" << endl
+			<< " 0 - end " << endl;
+		cin >> sort_nach;
+		if (sort_nach == 1) {
+			;
+		}
+		if (sort_nach == 2) {
+			;
+		}
+		if (sort_nach == 3) {
+			;
+		}
+		if (sort_nach == 4) {
+			;
+		}
+		;
+	} while (sort_nach != 0);
 
 } // END main
-
-void listeAusgeben(Artikel* addresse_neu_1, Artikel* addresse_neu_2, Liste& artikel_liste) {
-	addresse_neu_1 = artikel_liste.firstNodeListe();
-	addresse_neu_2 = NULL;
+void kopfAusgabe() {
+	cout << endl << endl << setw(25) << "Artikel DB" << endl << endl
+		<< setw(3) << right << "Nr" <<
+		"|" << setw(25) << left << "Bezeichnung" <<
+		"|" << setw(5) << left << "Preis" <<
+		"|" << setw(4) << left << "Bestand" << endl;
+	for (int i = 0; i <= 42; i++) {
+		cout << "-";
+	}
+	cout << endl;
+} // END kopfAusgabe
+void listeAusgeben(Liste& artikel_liste) {
+	kopfAusgabe();
+	Artikel* addresse_neu_1 = artikel_liste.firstNodeListe();
+	Artikel* addresse_neu_2 = NULL;
 
 	while (addresse_neu_2 != artikel_liste.lastNodeListe()){
 		addresse_neu_1->outputDatenFromArtikel();
 		addresse_neu_2 = addresse_neu_1;
-		addresse_neu_1->nextAddressFromArtikel();
+		addresse_neu_1 = addresse_neu_2->nextAddressFromArtikel();
 	}
 } // END listeAusgeben
