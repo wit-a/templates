@@ -18,11 +18,9 @@ public:
 	void outputDatenFromArtikel();
 	void nextAddressFromArtikel(Artikel*);
 	Artikel* nextAddressFromArtikel();
-	inline int artikelArtikelNr() {
-			return this->artikel_artikel_nr;
-	}
+	int artikelArtikelNr();
 	string artikelArtikelbezeichnung();
-    int getNr();
+    // int getNr();
 	double artikelPreis();
 	int artikelLagerbestand();
 
