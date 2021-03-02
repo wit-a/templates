@@ -31,16 +31,19 @@ void buubleSort(Liste& artikel_liste, int sort_nach) {
 	bool wechsel_node = false;
 	bool first_node_address = false;
 	bool last_node_address = false;
-	int anzahl_elemente_in_liste = anzahlElementeInListe(artikel_liste);
+	int anzahl_elemente_in_liste = 17; 
+	// anzahlElementeInListe(artikel_liste);
 	Artikel* addresse_artikel_tmp_1 = artikel_liste.firstNodeListe();
 	Artikel* addresse_artikel_tmp_2 = NULL;
 	Artikel* addresse_artikel_swap = NULL;
 	Artikel* addresse_artikel_swap_next = NULL;
 	Artikel* addresse_artikel_swap_befor = NULL;
 
-	for (int i = anzahl_elemente_in_liste; i > 0; i--) {
+	for (int i = anzahl_elemente_in_liste; i > 1; i--) {
 		for (int j = 0; j < anzahl_elemente_in_liste - 1; j++) {
-			addresse_artikel_tmp_2 = addresse_artikel_tmp_1->nextAddressFromArtikel();
+			if (addresse_artikel_tmp_1 != artikel_liste.lastNodeListe()) {
+				addresse_artikel_tmp_2 = addresse_artikel_tmp_1->nextAddressFromArtikel();
+			}
 			if (sort_nach == 1) { // sort nach ArtikelNr
 				if ( testSort(addresse_artikel_tmp_1->outputArtikelNr(), addresse_artikel_tmp_2->outputArtikelNr() ) ) {
 					wechsel_node = true;
@@ -58,9 +61,26 @@ void buubleSort(Liste& artikel_liste, int sort_nach) {
 			if (wechsel_node == true) {
 				if (artikel_liste.firstNodeListe() == addresse_artikel_tmp_1) { // ist das erste Element
 					first_node_address = true;
+					/* 
+						1. mit 2 tauschen 
+						damit das funktioniert:
+						Element 3 Addresse speichern 
+						Elemente Tauschen 1 - 2 (mit swap)
+						2. next Element die adresse von der 3 geben 
+						1. next Element die adresse von der 2 geben 
+						1. alst first node eintragen 
+					*/
+					addresse_artikel_swap_next = addresse_artikel_tmp_2->nextAddressFromArtikel();
+					addresse_artikel_swap = addresse_artikel_tmp_1;
+					addresse_artikel_tmp_1 = addresse_artikel_tmp_2;
+					addresse_artikel_tmp_2 = addresse_artikel_swap;
+					addresse_artikel_tmp_2->nextAddressFromArtikel(addresse_artikel_swap_next);
+					addresse_artikel_tmp_1->nextAddressFromArtikel(addresse_artikel_tmp_2);
+					artikel_liste.firstNodeListe(addresse_artikel_tmp_1);
 				}
 				if (artikel_liste.lastNodeListe() == addresse_artikel_tmp_2) { // das letzte Element
 					last_node_address = true;
+					
 				}
 				// 3 er tausch
 				addresse_artikel_swap = addresse_artikel_tmp_1;
@@ -75,8 +95,6 @@ void buubleSort(Liste& artikel_liste, int sort_nach) {
 			addresse_artikel_tmp_1 = addresse_artikel_tmp_2;
 		}
 	}
-	
-
 } // END buubleSort
 
 
@@ -99,7 +117,7 @@ int main(){
 			<< " 0 - end " << endl;
 		cin >> sort_nach;
 		if (sort_nach == 1) {
-			;
+			buubleSort(artikel_liste, sort_nach);
 		}
 		if (sort_nach == 2) {
 			;
@@ -110,7 +128,7 @@ int main(){
 		if (sort_nach == 4) {
 			;
 		}
-		;
+		listeAusgeben(artikel_liste);
 	} while (sort_nach != 0);
 
 } // END main
@@ -175,14 +193,17 @@ void fileEinlesen(Liste& artikel_liste) {
 	open_csv_file.close();
 } // END fileEinlesen
 
+
+// DEBUG THIS
 int anzahlElementeInListe(Liste& artikel_liste) {
 	int elemente_in_liste = 0;
 	// Bestimme anzahl der Elemente in der Liste 
 	Artikel* addresse_neu_1 = artikel_liste.firstNodeListe();
 	Artikel* addresse_neu_2 = NULL;
 
-	while (addresse_neu_2 != artikel_liste.lastNodeListe()) {
+	while (addresse_neu_1 != artikel_liste.lastNodeListe()) {
 		elemente_in_liste++;
+		addresse_neu_1->nextAddressFromArtikel();
 	}
 	return elemente_in_liste;
 
