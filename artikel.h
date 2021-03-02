@@ -18,6 +18,10 @@ private:
 	Artikel* artikel_next_address;
 public:
 	void outputDatenFromArtikel();
+	int outputArtikelNr();
+	string outputArtikelBezeichnung();
+	double outputArtikelPreis();
+	int outputArtikelLagerbestand();
 
 	void nextAddressFromArtikel(Artikel*);
 	Artikel* nextAddressFromArtikel();
@@ -32,7 +36,6 @@ private:
 public:
 	void firstNodeListe(Artikel*);
 	Artikel* firstNodeListe();
-
 	void lastNodeListe(Artikel*);
 	Artikel* lastNodeListe();
 };

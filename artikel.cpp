@@ -1,12 +1,24 @@
 // artikel.cpp
-
 #include "artikel.h"
+
 // Class Artikel
 void Artikel::outputDatenFromArtikel() {
 	cout << setw(3) << right << artikel_artikel_nr <<
 		"|" << setw(25) << left << artikel_artikelbezeichnung <<
 		"|" << setw(5) << left << artikel_preis <<
 		"|" << setw(4) << left << artikel_lagerbestand << endl;
+}
+int Artikel::outputArtikelNr() {
+	return artikel_artikel_nr;
+}
+string Artikel::outputArtikelBezeichnung() {
+	return artikel_artikelbezeichnung;
+}
+double Artikel::outputArtikelPreis() {
+	return artikel_preis;
+}
+int Artikel::outputArtikelLagerbestand() {
+	return artikel_lagerbestand;
 }
 
 void Artikel::nextAddressFromArtikel(Artikel* artikel_next_address_VM) {
