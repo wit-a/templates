@@ -76,13 +76,15 @@ void buubleSort(Liste& artikel_liste, int sort_nach) {
 						1. alst first node eintragen 
 					*/
 					addresse_artikel_swap_next = addresse_artikel_tmp_2->nextAddressFromArtikel();
+					// addresse_artikel_swap_next->outputDatenFromArtikel();
 					addresse_artikel_swap = addresse_artikel_tmp_1;
 					addresse_artikel_tmp_1 = addresse_artikel_tmp_2;
 					addresse_artikel_tmp_2 = addresse_artikel_swap;
-					addresse_artikel_tmp_2->nextAddressFromArtikel(addresse_artikel_swap_next);
 					addresse_artikel_tmp_1->nextAddressFromArtikel(addresse_artikel_tmp_2);
+					addresse_artikel_tmp_2->nextAddressFromArtikel(addresse_artikel_swap_next);
 					artikel_liste.firstNodeListe(addresse_artikel_tmp_1);
 					wechsel_node = false;
+					break;
 				}
 				if (artikel_liste.lastNodeListe() == addresse_artikel_tmp_2) { // das letzte Element muss getauscht werden
 					addresse_artikel_tmp_1; // vor letztes element
@@ -112,12 +114,49 @@ void buubleSort(Liste& artikel_liste, int sort_nach) {
 					// den vorletzten mit dem letzten verknöpfen
 					addresse_artikel_tmp_1->nextAddressFromArtikel(addresse_artikel_tmp_2);
 					//addresse_artikel_swap_vor_vor_letztes->outputDatenFromArtikel();
+					wechsel_node = false;
 					break;
 				}
 				else{
-					;
+					addresse_artikel_tmp_1; // first
+					addresse_artikel_tmp_2; // next 
+					// vor firs 
+					Artikel* tmp1 = artikel_liste.firstNodeListe();
+					Artikel* tmp2 = NULL;
+					while (tmp2 != addresse_artikel_tmp_1) {
+						if (tmp1->nextAddressFromArtikel() == addresse_artikel_tmp_1) {
+							addresse_artikel_swap_vor_vor_letztes = tmp1; // vor first 
+							break;
+						}
+						tmp2 = tmp1->nextAddressFromArtikel();
+						tmp1 = tmp2;
+					}
+					// Addrese dex nechsten elements nach next 
+					addresse_artikel_swap_next = addresse_artikel_tmp_2->nextAddressFromArtikel();
+
+					addresse_artikel_swap_vor_vor_letztes->outputDatenFromArtikel(); // 9 = 1
+					addresse_artikel_tmp_1->outputDatenFromArtikel(); // 11 = 2
+					addresse_artikel_tmp_2->outputDatenFromArtikel(); // 10 = 3 
+					addresse_artikel_swap_next->outputDatenFromArtikel(); // 12 = 4 
+					// Tausche 2 mit 3 
+					addresse_artikel_swap = addresse_artikel_tmp_1;
+					addresse_artikel_tmp_1 = addresse_artikel_tmp_2; // tmp_1 wird zu tmp_2
+					addresse_artikel_tmp_2 = addresse_artikel_swap;  // tmp_2 wird zu tmp_1
+					// 10 = 3 tmp_2
+					// 11 = 2 tmp_1 
+										/*
+					addresse_artikel_swap_vor_vor_letztes->outputDatenFromArtikel(); // 9 = 1
+					addresse_artikel_tmp_1->outputDatenFromArtikel(); // 10 = 2
+					addresse_artikel_tmp_2->outputDatenFromArtikel(); // 11 = 3
+					addresse_artikel_swap_next->outputDatenFromArtikel(); // 12 = 4 
+					*/
+					addresse_artikel_swap_vor_vor_letztes->nextAddressFromArtikel(addresse_artikel_tmp_1);
+					addresse_artikel_tmp_1->nextAddressFromArtikel(addresse_artikel_tmp_2);
+					addresse_artikel_tmp_2->nextAddressFromArtikel(addresse_artikel_swap_next);
+					wechsel_node = false;
+					break;
 				}
-			wechsel_node = false;
+				wechsel_node = false;
 			}
 			addresse_artikel_tmp_1 = addresse_artikel_tmp_2;
 		}
