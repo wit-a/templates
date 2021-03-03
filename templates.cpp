@@ -25,7 +25,8 @@ template<class T> bool testSort(T first_element, T last_element) {
 void kopfAusgabe();
 void listeAusgeben(Liste&);
 void fileEinlesen(Liste&);
-int anzahlElementeInListe(Liste&);
+int anzahlElementeInListe(Liste&); // BUG 
+
 
 void buubleSort(Liste& artikel_liste, int sort_nach) {
 	bool wechsel_node = false;
@@ -37,11 +38,12 @@ void buubleSort(Liste& artikel_liste, int sort_nach) {
 	Artikel* addresse_artikel_tmp_2 = NULL;
 	Artikel* addresse_artikel_swap = NULL;
 	Artikel* addresse_artikel_swap_next = NULL;
-	Artikel* addresse_artikel_swap_befor = NULL;
+	Artikel* addresse_artikel_swap_vor_vor_letztes = NULL;
 
 	for (int i = anzahl_elemente_in_liste; i > 1; i--) {
 		for (int j = 0; j < anzahl_elemente_in_liste - 1; j++) {
-			if (addresse_artikel_tmp_1 != artikel_liste.lastNodeListe()) {
+			
+			if (addresse_artikel_tmp_1 != artikel_liste.lastNodeListe()) { // somst entshet ein Pionter mit overflow 
 				addresse_artikel_tmp_2 = addresse_artikel_tmp_1->nextAddressFromArtikel();
 			}
 			if (sort_nach == 1) { // sort nach ArtikelNr
@@ -50,13 +52,19 @@ void buubleSort(Liste& artikel_liste, int sort_nach) {
 				}
 			}
 			if (sort_nach == 2) { // sort nach Bezeichnung
-
+				if (testSort(addresse_artikel_tmp_1->outputArtikelBezeichnung(), addresse_artikel_tmp_2->outputArtikelBezeichnung())) {
+					wechsel_node = true;
+				}
 			}
 			if (sort_nach == 3) { // sort nach Preis
-
+				if (testSort(addresse_artikel_tmp_1->outputArtikelPreis(), addresse_artikel_tmp_2->outputArtikelPreis())) {
+					wechsel_node = true;
+				}
 			}
 			if (sort_nach == 4) { // sort nach Lagerbestand 
-
+				if (testSort(addresse_artikel_tmp_1->outputArtikelLagerbestand(), addresse_artikel_tmp_2->outputArtikelLagerbestand())) {
+					wechsel_node = true;
+				}
 			}
 			if (wechsel_node == true) {
 				if (artikel_liste.firstNodeListe() == addresse_artikel_tmp_1) { // ist das erste Element
@@ -77,20 +85,36 @@ void buubleSort(Liste& artikel_liste, int sort_nach) {
 					addresse_artikel_tmp_2->nextAddressFromArtikel(addresse_artikel_swap_next);
 					addresse_artikel_tmp_1->nextAddressFromArtikel(addresse_artikel_tmp_2);
 					artikel_liste.firstNodeListe(addresse_artikel_tmp_1);
+					wechsel_node = false;
 				}
-				if (artikel_liste.lastNodeListe() == addresse_artikel_tmp_2) { // das letzte Element
-					last_node_address = true;
-					
+				if (artikel_liste.lastNodeListe() == addresse_artikel_tmp_2) { // das letzte Element muss getauscht werden
+					addresse_artikel_tmp_1; // vor letztes element
+					addresse_artikel_tmp_2; // das letzte element 
+					// brauch das vor vor letztes noch für next addres
+					Artikel* tmp1 = artikel_liste.firstNodeListe();
+					Artikel* tmp2 = NULL;
+					while (tmp2 != addresse_artikel_tmp_1){
+						if (tmp1->nextAddressFromArtikel() == addresse_artikel_tmp_1) {
+							addresse_artikel_swap_vor_vor_letztes = tmp1; // vor vor letztes element 
+							break;
+						}
+						tmp2 = tmp1->nextAddressFromArtikel();
+						tmp1 = tmp2;
+					}
+
+					// 1.1 das vor letzte ins swap
+					addresse_artikel_swap = addresse_artikel_tmp_2;
+					// 1.2 das vor letzte wird mit letztem überschrieben
+					addresse_artikel_tmp_2 = addresse_artikel_tmp_1;
+					// 1.3 das letzte wird zu swap 
+					addresse_artikel_tmp_1 = addresse_artikel_swap;
+					// 2.1 das vor vor letzte element braucht die addresse vom vor letzten element
+					addresse_artikel_swap_vor_vor_letztes->nextAddressFromArtikel(addresse_artikel_tmp_1);
+					artikel_liste.lastNodeListe(addresse_artikel_tmp_2);
+					addresse_artikel_swap_vor_vor_letztes->outputDatenFromArtikel();
+					break;
 				}
-				// 3 er tausch
-				addresse_artikel_swap = addresse_artikel_tmp_1;
-				addresse_artikel_swap_next = addresse_artikel_tmp_1->nextAddressFromArtikel(); // nechster node
-
-				addresse_artikel_tmp_1 = addresse_artikel_tmp_2;
-				addresse_artikel_tmp_2 = addresse_artikel_swap;
-
-
-				wechsel_node = false;
+			wechsel_node = false;
 			}
 			addresse_artikel_tmp_1 = addresse_artikel_tmp_2;
 		}
