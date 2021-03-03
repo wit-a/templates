@@ -30,8 +30,6 @@ int anzahlElementeInListe(Liste&); // BUG
 
 void buubleSort(Liste& artikel_liste, int sort_nach) {
 	bool wechsel_node = false;
-	bool first_node_address = false;
-	bool last_node_address = false;
 	int anzahl_elemente_in_liste = 17; 
 	// anzahlElementeInListe(artikel_liste);
 	Artikel* addresse_artikel_tmp_1 = artikel_liste.firstNodeListe();
@@ -68,7 +66,6 @@ void buubleSort(Liste& artikel_liste, int sort_nach) {
 			}
 			if (wechsel_node == true) {
 				if (artikel_liste.firstNodeListe() == addresse_artikel_tmp_1) { // ist das erste Element
-					first_node_address = true;
 					/* 
 						1. mit 2 tauschen 
 						damit das funktioniert:
@@ -101,7 +98,6 @@ void buubleSort(Liste& artikel_liste, int sort_nach) {
 						tmp2 = tmp1->nextAddressFromArtikel();
 						tmp1 = tmp2;
 					}
-
 					// 1.1 das vor letzte ins swap
 					addresse_artikel_swap = addresse_artikel_tmp_2;
 					// 1.2 das vor letzte wird mit letztem überschrieben
@@ -111,8 +107,15 @@ void buubleSort(Liste& artikel_liste, int sort_nach) {
 					// 2.1 das vor vor letzte element braucht die addresse vom vor letzten element
 					addresse_artikel_swap_vor_vor_letztes->nextAddressFromArtikel(addresse_artikel_tmp_1);
 					artikel_liste.lastNodeListe(addresse_artikel_tmp_2);
-					addresse_artikel_swap_vor_vor_letztes->outputDatenFromArtikel();
+					// NULL - next bei letzten 
+					addresse_artikel_tmp_2->nextAddressFromArtikel(NULL);
+					// den vorletzten mit dem letzten verknöpfen
+					addresse_artikel_tmp_1->nextAddressFromArtikel(addresse_artikel_tmp_2);
+					//addresse_artikel_swap_vor_vor_letztes->outputDatenFromArtikel();
 					break;
+				}
+				else{
+					;
 				}
 			wechsel_node = false;
 			}
